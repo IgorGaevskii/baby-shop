@@ -1,6 +1,51 @@
 const elem_wrapperCard = document.querySelector('.wrapper-card'),//элемент куда будем вставлять карточки товара
 	word_registration = document.querySelector('.registration-user'),
-	windowRegistration = document.querySelector('.window_registration');
+	windowRegistration = document.querySelector('.window_registration'),
+	html_moveOne = `<section class="move_one">
+						<div class="heading">
+							<p class="heading_name">Регистрация - Шаг 1 из 2</p>
+							<div class="wrapper-cross-move-one">
+								<div class="cross"></div>
+							</div>
+						</div>
+						<dir class="wrapper-form">
+							<form name="registrationMoveOne">
+								<p class="name-field-registration email">E-mail</p>
+								<input type="email" name="email_user" autocomplete="off" class="field-registration">
+								<p class="name-field-registration password">Пароль</p>
+								<input type="text" name="password_user" autocomplete="off" class="field-registration">
+								<p class="name-field-registration repeatPassword">Повторить пароль</p>
+								<input type="text" name="repeatPassword" autocomplete="off" class="field-registration">
+							</form>
+							<div class="description"></div>
+						</dir>
+						<button id="but-registration-move-one">Отправить</button>
+					</section>`,
+	html_moveTwo = `<section class="move_two">
+						<div class="heading">
+							<p class="heading_name">Регистрация - Шаг 2 из 2</p>
+						</div>
+						<div class="wrapper-form">
+							<form name="registrationMoveTwo">
+								<p class="name-field-registration name">Имя</p>
+								<input type="text" name="name" autocomplete="off" class="field-registration">
+								<p class="name-field-registration surname">Фамилия</p>
+								<input type="text" name="surname" autocomplete="off" class="field-registration">
+								<p class="name-field-registration phone">Номер телефона</p>
+								<input type="tel" name="phone" autocomplete="off" maxlength="17" class="field-registration">
+							</form>
+							<div class="description">
+								<?php
+									if ($confirmEmail) {
+										echo '<p>Адрес почты успешно подтвержден.<br><br>Пожалуйста, для окончания регистрации, заполните следующую форму.</p>';
+									} else {
+										echo '<p>Адрес почты не подтвержден</p>';
+									}
+								?>
+							</div>
+						</div>
+						<button id="but-registration-move-two">Отправить</button>
+					</section>`;
 
 const obj = {
 		nameError: {
@@ -27,6 +72,21 @@ const obj = {
 			return false;
 		}
 	};
+
+document.addEventListener('DOMContentLoaded', () => {
+	let moveRegistrstion = windowRegistration.dataset.move,
+		script = document.createElement('script');
+
+	if (moveRegistrstion == 'move_one') {
+		windowRegistration.insertAdjacentHTML('afterbegin', html_moveOne);
+		script.src = "js/submit data form move one.js";
+	} else {
+		windowRegistration.insertAdjacentHTML('afterbegin', html_moveTwo);
+		script.src = "js/submit data form move two.js";
+	}
+
+	document.head.append(script);
+});
 
 window.onload = () => {
 
